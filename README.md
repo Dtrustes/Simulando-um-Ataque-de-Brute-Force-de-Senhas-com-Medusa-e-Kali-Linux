@@ -4,6 +4,7 @@ Diante deste desafio que foi proposto, foram criadas dois ambientes de MV (Máqu
 
 <img width="720" height="469" alt="Captura de tela 2026-11-12 210451" src="https://github.com/user-attachments/assets/f8081cc8-1ba6-4181-a8cf-d5ac2239940e" />
 
+<img width="869" height="659" alt="Captura de tela 2026-11-12 210656" src="https://github.com/user-attachments/assets/119e3149-9b0a-4c29-85e8-e562db913fa8" />
 
 ---
 

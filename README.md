@@ -53,7 +53,7 @@ Como de acordo com o print o acesso foi efetuado com as credenciais validadas pe
 
 # Simulando ataque brute force em formulários de login web (http) no sistema dvwa
 
-Dando segmento ao desafio é também possível efetuar o ataque brute force em páginas web em formulários de login. Então será feito uma simulação utilizando o DVWA (Damn Vulnerable Web Aplication) uma aplicação também que será explorada no ambiente metaspoitable. É possível o acesso ao site utilizando a conexão com o IP encontrado anteriormente
+Dando seguimento ao desafio é também possível efetuar o ataque brute force em páginas web em formulários de login. Então será feito uma simulação utilizando o DVWA (Damn Vulnerable Web Aplication) uma aplicação também que será explorada no ambiente metaspoitable. É possível o acesso ao site utilizando a conexão com o IP encontrado anteriormente
 
 <img width="1919" height="1029" alt="Captura de tela 2026-11-12 214017" src="https://github.com/user-attachments/assets/1e5f4b06-0b5f-4aa1-b554-2de5506c335f" />
 
@@ -86,3 +86,35 @@ Após o ataque foram feitos dois testes, um com credenciais invalidas e outro te
 <img width="1919" height="1030" alt="Captura de tela 2026-11-12 215547" src="https://github.com/user-attachments/assets/e962e597-7746-41dd-aad7-7be5061bba7c" />
 
 <img width="1919" height="1031" alt="Captura de tela 2026-11-12 215619" src="https://github.com/user-attachments/assets/f71c0a0a-35e7-48a9-9b82-937098dc0b48" />
+
+# Simulando enumeração de usuários e ataque de SMB com password spraying
+
+Continuando com o desafio e os ambientes simulados, para esta parte será feita a enumeração dos usuários que nada mais é um processo de descobrir quais contas e nomes de usuários existem no sistema de forma válida. É uma técnica utilizada por atacantes na etapa de reconhecimento para a obtenção de informações. Utilizando o comando:
+
+```bash 
+enum4linux -a 192.168.56.101 | tee enum4_output.txt
+```
+É possível obter os usuários do sistema, e diferente do processo de brute force onde se tenta supor os usuários e as senhas, com a enumeração, obtém diretamente do sistema a lista dos usuários e será feita a análise das senhas para cada um. 
+
+<img width="1918" height="1004" alt="Captura de tela 2026-11-12 233445" src="https://github.com/user-attachments/assets/3ed02827-e8b4-4cf8-a74a-770a93723a7b" />
+
+Então é criado uma wordlist com usuários e feitos testes com senhas comuns ou senhas mais prováveis.
+
+<img width="1919" height="461" alt="Captura de tela 2026-11-12 233903" src="https://github.com/user-attachments/assets/2bff75ff-030c-4d6d-8edd-7a765f37a1b2" />
+
+Com o seguinte comando e utilizando a ferramenta medusa: 
+
+```bash
+medusa -h 192.168.56.101 -U UsersSmbPassSpray.txt -P PasswordBruteForceFTP.txt -M smbnt -t 2 -T 50
+```
+<img width="1919" height="1032" alt="Captura de tela 2026-11-12 234647" src="https://github.com/user-attachments/assets/62b259aa-1f17-46a4-bdda-61d62176604e" />
+
+Com este ataque foi possível identificar o usuário e a senha presente para acesso do servidor. Será feito então um acesso via protocolo SMB que é responsável pelo tráfego de informações de arquivos, pastas e impressoras, via cliente e servidor. Com o seguinte comando é possível o acesso: 
+
+```bash
+smbclient -L //192.168.56.101 -U msfadmin
+```
+
+<img width="1919" height="1029" alt="Captura de tela 2026-11-12 235536" src="https://github.com/user-attachments/assets/6aa6f276-eb2b-46a0-91dc-bc95662ce84c" />
+
+Conectado, é possível efetuar o download de arquivos confidenciais ou sensíveis e obter informações privilegiadas da empresa atacada.

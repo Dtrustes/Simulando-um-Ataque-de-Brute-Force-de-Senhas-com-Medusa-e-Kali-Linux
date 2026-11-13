@@ -32,7 +32,11 @@ Criadas as listas de senhas e usuários, é possível fazer o ataque Brute Force
 ```bash
 medusa -h 192.168.56.101 -U /root/UsersBruteForceFTP.txt -P /root/PasswordBruteForceFTP.txt -M ftp -t 6
 ```
+<img width="1919" height="341" alt="Captura de tela 2026-11-12 213023" src="https://github.com/user-attachments/assets/f5ea9459-c9eb-4647-a39b-a2ed2e65d206" />
+
+
 <img width="873" height="729" alt="Captura de tela 2026-11-12 211909" src="https://github.com/user-attachments/assets/8ea3154e-4c01-4508-b46f-fa1a4afd95ca" />
+
 
 <img width="1918" height="1031" alt="Captura de tela 2026-11-12 212314" src="https://github.com/user-attachments/assets/6b397c1d-2785-4039-9c80-000f9c6f4318" />
 

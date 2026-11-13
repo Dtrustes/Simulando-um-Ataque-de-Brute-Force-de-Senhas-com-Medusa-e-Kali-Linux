@@ -2,6 +2,7 @@
 
 Diante deste desafio que foi proposto, foram criadas dois ambientes de MV (Máquinas Virtuais), uma com o SO (Sistema Operacional) Kali Linux e a outra com o ambiente vulnerável proposital Metasploitable, como apresentado nos prints a seguir:
 
+<img width="720" height="469" alt="Captura de tela 2026-11-12 210451" src="https://github.com/user-attachments/assets/f8081cc8-1ba6-4181-a8cf-d5ac2239940e" />
 
 
 ---
